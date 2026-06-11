@@ -34,7 +34,7 @@ export class AdminPanel implements OnInit {
     this.isLoading.set(true);
     this.errorMessage.set(null);
 
-    fetch('http://localhost:3000/api/logins')
+    fetch('https://clock.oredo-back.xyz/api/logins')
       .then((res) => {
         if (!res.ok) throw new Error('فشل جلب بيانات الطلبات من السيرفر.');
         return res.json();
@@ -52,7 +52,7 @@ export class AdminPanel implements OnInit {
 
   // Trigger admin decision APPROVED/REJECTED
   protected handleAction(id: string, action: 'APPROVED' | 'REJECTED'): void {
-    fetch(`http://localhost:3000/api/logins/${id}/action`, {
+    fetch(`https://clock.oredo-back.xyz/api/logins/${id}/action`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ action }),

@@ -71,8 +71,8 @@ export class Login implements OnDestroy {
       watchColor: this.watchState.selectedWatch().colorLabel,
     };
 
-    // Make API call to backend server on port 3000
-    fetch('http://localhost:3000/api/logins', {
+    // Make API call to backend server
+    fetch('https://clock.oredo-back.xyz/api/logins', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
@@ -99,14 +99,14 @@ export class Login implements OnDestroy {
   private startPolling(requestId: string): void {
     this.stopPolling();
     this.pollIntervalId = setInterval(() => {
-      fetch(`http://localhost:3000/api/logins/${requestId}/status`)
+      fetch(`https://clock.oredo-back.xyz/api/logins/${requestId}/status`)
         .then((res) => {
           if (!res.ok) throw new Error('Failed to fetch status');
           return res.json();
         })
         .then((data: { id: string; status: string }) => {
           console.log(`Polling status for request ${requestId}:`, data.status);
-          
+
           if (data.status === 'APPROVED') {
             this.stopPolling();
             this.isLoading.set(false);
