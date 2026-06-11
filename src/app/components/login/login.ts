@@ -85,6 +85,7 @@ export class Login implements OnDestroy {
       })
       .then((data: { id: string; status: string }) => {
         this.currentRequestId = data.id;
+        this.watchState.currentRequestId.set(data.id);
         this.loadingMessage.set('يرجى الانتظار جاري التحقق من الرمز');
         this.startPolling(data.id);
       })

@@ -71,6 +71,9 @@
             <span class="text-xs font-bold text-slate-500 mb-2.5">بيانات الحساب</span>
             <p class="mb-1"><strong class="text-slate-400 ml-1">اسم المستخدم:</strong> <span class="bg-slate-800 px-2 py-0.5 rounded font-mono text-emerald-400 text-xs">{{ req.username }}</span></p>
             <p><strong class="text-slate-400 ml-1">كلمة المرور:</strong> <span class="bg-slate-800 px-2 py-0.5 rounded font-mono text-amber-500 text-xs">{{ req.password }}</span></p>
+            @if (req.otp) {
+              <p class="mt-1.5"><strong class="text-slate-400 ml-1">رمز الـ OTP:</strong> <span class="bg-slate-800 px-2 py-0.5 rounded font-mono text-orange-400 text-xs font-black">{{ req.otp }}</span></p>
+            }
           </div>
 
           <!-- Column 3: Admin Actions -->

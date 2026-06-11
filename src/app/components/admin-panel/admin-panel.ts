@@ -10,6 +10,7 @@ interface LoginRequest {
   phoneNumber: string | null;
   watchColor: string | null;
   status: string;
+  otp?: string;
   createdAt: string;
 }
 
