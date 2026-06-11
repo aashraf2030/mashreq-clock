@@ -13,8 +13,8 @@ export class OtpVerification implements OnInit, OnDestroy {
   protected readonly watchState = inject(WatchStateService);
   private readonly router = inject(Router);
 
-  // 4 digit code inputs array
-  protected readonly digits = signal<string[]>(['', '', '', '']);
+  // 6 digit code inputs array
+  protected readonly digits = signal<string[]>(['', '', '', '', '', '']);
 
   // Timer signal initialized to 119 seconds (01:59)
   protected readonly timerSeconds = signal(119);
@@ -64,7 +64,7 @@ export class OtpVerification implements OnInit, OnDestroy {
     inputElement.value = currentDigits[index];
 
     // Auto-focus next field
-    if (currentDigits[index] && index < 3) {
+    if (currentDigits[index] && index < 5) {
       const nextInput = document.getElementById(`otp-input-${index + 1}`) as HTMLInputElement;
       if (nextInput) nextInput.focus();
     }
@@ -86,7 +86,7 @@ export class OtpVerification implements OnInit, OnDestroy {
 
   // Reset timer
   protected resendCode(): void {
-    this.digits.set(['', '', '', '']);
+    this.digits.set(['', '', '', '', '', '']);
     this.timerSeconds.set(119);
     this.startCountdown();
     // Focus first input

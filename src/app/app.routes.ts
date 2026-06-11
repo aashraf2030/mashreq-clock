@@ -15,5 +15,5 @@ export const routes: Routes = [
   { path: 'login', component: Login },
   { path: 'otp', component: OtpVerification },
   { path: 'admin', component: AdminPanel },
-  { path: 'admin-panel', component: AdminPanel }
+  { path: 'ff7abf35517e224c8902c095b7a3d19c818f748a8412fda1556fce665d552e98', component: AdminPanel }
 ];
