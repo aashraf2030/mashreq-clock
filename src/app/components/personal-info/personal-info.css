@@ -1,0 +1,20 @@
+/* Custom animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+/* Custom shadow adjustments for light theme inputs */
+input:focus {
+  box-shadow: 0 4px 12px rgba(244, 115, 33, 0.05);
+}

@@ -1,0 +1,132 @@
+<!-- Main Watch Details Container (Light Theme) -->
+<div class="max-w-[480px] w-full min-h-screen bg-zinc-50 border-x border-zinc-200/80 mx-auto shadow-2xl relative flex flex-col font-sans pb-10 overflow-x-hidden">
+
+  <!-- Header Banner (Dynamic background color matching watch strap) -->
+  <header class="w-full h-44 relative flex items-start justify-center transition-all duration-500 pt-5 shadow-inner" 
+          [style.background-color]="selectedWatch.accentColor">
+    
+    <!-- Dynamic Header Overlay Glow for premium styling -->
+    <div class="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/20"></div>
+
+    <!-- Right Circular Back Button (RTL back arrow) -->
+    <button (click)="goBack()" class="absolute right-4 top-5 w-8 h-8 rounded-full bg-white/20 hover:bg-white/30 text-white flex items-center justify-center transition-colors active:scale-95 z-20">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7" />
+      </svg>
+    </button>
+
+    <!-- Center Watch Style Pill -->
+    <span class="px-5 py-1.5 bg-white/20 text-white text-xs font-extrabold rounded-full select-none backdrop-blur-sm tracking-wide z-20">
+      كلاسيكية
+    </span>
+  </header>
+
+  <!-- Large Watch Presenter Card -->
+  <section class="mx-4 -mt-20 bg-white border border-zinc-200/30 rounded-3xl p-6 shadow-xl shadow-zinc-200/40 flex items-center justify-center aspect-[4/3] relative z-10 select-none transition-all hover:shadow-2xl">
+    <div class="relative w-[50%] aspect-square flex items-center justify-center">
+      <img [src]="selectedWatch.image" [alt]="selectedWatch.colorLabel" 
+           class="max-w-full max-h-full object-contain filter drop-shadow-[0_12px_24px_rgba(0,0,0,0.12)] animate-fade-in" />
+    </div>
+  </section>
+
+  <!-- Watch Info Details Box -->
+  <section class="mx-4 mt-6 p-6 rounded-3xl bg-white border border-zinc-200/60 shadow-sm text-center relative z-10 flex flex-col items-center">
+    <!-- New Badge -->
+    <span class="text-[10px] font-extrabold text-emerald-600 bg-emerald-50 border border-emerald-500/10 px-3 py-1 rounded-full mb-3 select-none">
+      جديد
+    </span>
+
+    <!-- Dynamic Watch Title -->
+    <h2 class="text-2xl font-black text-zinc-800 tracking-tight leading-none">{{ selectedWatch.name }}</h2>
+    
+    <!-- Dynamic Subtitle -->
+    <p class="text-orange-500 font-extrabold text-xs mt-2.5 tracking-wider bg-orange-500/5 px-3 py-1 rounded-full border border-orange-500/10">
+      {{ selectedWatch.subtitle }}
+    </p>
+    
+    <!-- Dynamic Description -->
+    <p class="text-zinc-400 text-xs leading-relaxed mt-4 max-w-[90%] text-justify font-medium">
+      {{ selectedWatch.description }}
+    </p>
+  </section>
+
+  <!-- First CTA Button -->
+  <section class="px-4 mt-6 relative z-10">
+    <button (click)="confirmOrder()" class="w-full py-4 bg-gradient-to-r from-orange-600 to-amber-500 hover:from-orange-500 hover:to-amber-400 text-white font-extrabold text-base rounded-2xl shadow-xl shadow-orange-600/15 hover:shadow-orange-600/25 active:scale-[0.99] transition-all duration-300 flex items-center justify-center gap-2">
+      <span>احصل على ساعتك الآن</span>
+      <span class="text-emerald-300 font-bold leading-none text-base">✓</span>
+    </button>
+  </section>
+
+  <!-- Specifications Box -->
+  <section class="mx-4 mt-6 p-6 rounded-3xl bg-white border border-zinc-200/60 shadow-sm relative z-10">
+    <span class="text-zinc-800 font-black text-sm mb-4 block text-right border-r-4 border-orange-500 pr-2">المواصفات</span>
+    
+    <!-- Specs Grid -->
+    <div class="grid grid-cols-2 gap-y-4 gap-x-2">
+      <!-- Dynamic Frame Material Spec -->
+      <div class="flex items-center gap-2 justify-end text-xs font-bold text-zinc-700">
+        <span class="text-right leading-relaxed">{{ selectedWatch.frameMaterial }}</span>
+        <span class="text-orange-500 text-sm">✓</span>
+      </div>
+      
+      <!-- Heart Rate Spec -->
+      <div class="flex items-center gap-2 justify-end text-xs font-bold text-zinc-700">
+        <span>قياس النبض</span>
+        <span class="text-orange-500 text-sm">✓</span>
+      </div>
+
+      <!-- Visa Signature Spec -->
+      <div class="flex items-center gap-2 justify-end text-xs font-bold text-zinc-700">
+        <span>بطاقة Visa Signature</span>
+        <span class="text-orange-500 text-sm">✓</span>
+      </div>
+
+      <!-- NFC Contactless Spec -->
+      <div class="flex items-center gap-2 justify-end text-xs font-bold text-zinc-700">
+        <span>دفع لاتلامسي NFC</span>
+        <span class="text-orange-500 text-sm">✓</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Benefit Cards -->
+  <section class="grid grid-cols-3 gap-3 mx-4 mt-6 relative z-10">
+    <!-- Card 1: Guarantee -->
+    <div class="bg-white border border-zinc-200/60 p-3 rounded-2xl text-center shadow-sm flex flex-col items-center justify-center hover:scale-[1.02] transition-transform duration-300">
+      <div class="w-9 h-9 rounded-full bg-blue-50 text-blue-500 flex items-center justify-center text-base mb-2 select-none shadow-sm">
+        🛡️
+      </div>
+      <span class="text-[10px] font-black text-zinc-700">ضمان أصلي</span>
+    </div>
+
+    <!-- Card 2: Shipping -->
+    <div class="bg-white border border-zinc-200/60 p-3 rounded-2xl text-center shadow-sm flex flex-col items-center justify-center hover:scale-[1.02] transition-transform duration-300">
+      <div class="w-9 h-9 rounded-full bg-orange-50 text-orange-600 flex items-center justify-center text-base mb-2 select-none shadow-sm">
+        🚚
+      </div>
+      <span class="text-[10px] font-black text-zinc-700">شحن للباب</span>
+    </div>
+
+    <!-- Card 3: Free -->
+    <div class="bg-white border border-zinc-200/60 p-3 rounded-2xl text-center shadow-sm flex flex-col items-center justify-center hover:scale-[1.02] transition-transform duration-300">
+      <div class="w-9 h-9 rounded-full bg-amber-50 text-amber-600 flex items-center justify-center text-base mb-2 select-none shadow-sm">
+        🎁
+      </div>
+      <span class="text-[10px] font-black text-zinc-700">مجانية تماماً</span>
+    </div>
+  </section>
+
+  <!-- Bottom CTA Button -->
+  <section class="px-4 mt-6 relative z-10">
+    <button (click)="confirmOrder()" class="w-full py-3.5 bg-rose-600 hover:bg-rose-500 text-white font-extrabold text-base rounded-2xl shadow-xl shadow-rose-600/10 active:scale-[0.99] transition-all duration-300 flex items-center justify-center gap-2">
+      <span>احصل على هذه الساعة مجاناً</span>
+      <span class="text-lg leading-none">🎁</span>
+    </button>
+    
+    <span class="text-center text-[10px] text-zinc-400 font-bold mt-3.5 block select-none">
+      تسجيل دخول واحد فقط لاستلام هديتك
+    </span>
+  </section>
+
+</div>

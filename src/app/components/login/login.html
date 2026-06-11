@@ -1,0 +1,138 @@
+<!-- Main Login Container (Light Theme) -->
+<div class="max-w-[480px] w-full min-h-screen bg-white border-x border-zinc-200/80 mx-auto shadow-2xl relative flex flex-col justify-between font-sans pb-4">
+
+  <!-- Main Body Content -->
+  <div class="w-full flex-grow flex flex-col">
+    <!-- Header -->
+    <header class="w-full flex items-center justify-between px-6 py-4 border-b border-zinc-100">
+      <!-- Right side: Logo -->
+      <div class="flex items-center">
+        <img src="imgs/mashreq_logo_0ba61c5b_2e1aa377.png" alt="بنك المشرق" class="h-9 w-auto object-contain" />
+      </div>
+      <!-- Left side: Language Pill dropdown -->
+      <button class="px-4 py-1.5 border border-zinc-200 text-zinc-700 text-xs font-black rounded-full flex items-center justify-center gap-1 bg-zinc-50 hover:bg-zinc-100 transition-colors select-none">
+        <span>العربية</span>
+        <span class="text-[9px] text-zinc-400">▼</span>
+      </button>
+    </header>
+
+    <!-- Inputs & Forms Section -->
+    <form (submit)="handleFormSubmit($event)" class="px-6 pt-10 flex-grow flex flex-col justify-between">
+      <div class="space-y-6">
+
+        <!-- Error Feedback message -->
+        @if (errorMessage()) {
+          <div class="p-3.5 bg-rose-50 text-rose-600 rounded-xl text-xs font-bold flex items-center gap-2 border border-rose-100 animate-fade-in">
+            <span>⚠️</span>
+            <p class="leading-relaxed text-right flex-grow">{{ errorMessage() }}</p>
+          </div>
+        }
+
+        <!-- Username Field -->
+        <div>
+          <label class="block text-sm font-black text-zinc-800 mb-1.5 text-right">اسم المستخدم</label>
+          <input type="text" 
+                 [value]="username()"
+                 (input)="onInput('user', $event)"
+                 placeholder="أدخل اسم المستخدم" 
+                 class="w-full bg-zinc-50/80 border border-zinc-200/80 rounded-xl px-4 py-3.5 text-sm text-zinc-800 placeholder-zinc-400 focus:outline-none focus:border-orange-500 focus:bg-white transition-all text-right shadow-sm" />
+        </div>
+
+        <!-- Password Field -->
+        <div>
+          <label class="block text-sm font-black text-zinc-800 mb-1.5 text-right">كلمة المرور</label>
+          <div class="relative w-full">
+            <input [type]="isPasswordVisible() ? 'text' : 'password'" 
+                   [value]="password()"
+                   (input)="onInput('pass', $event)"
+                   placeholder="أدخل كلمة المرور" 
+                   class="w-full bg-zinc-50/80 border border-zinc-200/80 rounded-xl pl-12 pr-4 py-3.5 text-sm text-zinc-800 placeholder-zinc-400 focus:outline-none focus:border-orange-500 focus:bg-white transition-all text-right shadow-sm" />
+            <!-- Eye toggle button on the left (RTL representation) -->
+            <button type="button" 
+                    (click)="togglePasswordVisibility()" 
+                    class="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-600 focus:outline-none select-none text-base">
+              {{ isPasswordVisible() ? '👁️' : '👁️‍🗨️' }}
+            </button>
+          </div>
+          <!-- Forgot Password Link (Aligns to left of the card in RTL) -->
+          <a class="text-xs font-bold text-rose-500 hover:text-rose-600 block text-left mt-2 cursor-pointer transition-colors">
+            هل نسيت كلمة المرور؟
+          </a>
+        </div>
+
+        <!-- CTA Row (Fingerprint key + Login button) -->
+        <div class="flex items-center gap-3 pt-4">
+          <!-- Fingerprint/Smart login box (Renders on the right in RTL, so first in code) -->
+          <button type="button" class="w-12 h-12 flex items-center justify-center rounded-xl border-2 border-orange-500 bg-white text-orange-500 hover:bg-orange-50/50 active:scale-95 transition-all cursor-pointer shadow-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 009 11a13.92 13.92 0 00-2.29-6.862m3.44 2.04A13.93 13.93 0 0112 11c0 .26-.007.518-.02.775m-3.44-2.04A13.93 13.93 0 009 11c0 .26.007.518.02.775m5.42 2.625c.362.83.606 1.724.717 2.66m-1.393-5.285A13.92 13.92 0 0116 11c0 .26-.007.518-.02.775m-2.222-1.895A13.93 13.93 0 0114 11c0 .26-.007.518-.02.775m4.337-1.09a13.9 13.9 0 01.666 4.25c0 1.258-.166 2.477-.48 3.636" />
+            </svg>
+          </button>
+
+          <!-- Login Button -->
+          <button type="submit" 
+                  [disabled]="!isFormValid"
+                  class="flex-grow py-3 rounded-xl font-extrabold text-sm transition-all duration-300 text-center flex items-center justify-center select-none"
+                  [ngClass]="isFormValid ? 'bg-gradient-to-r from-orange-600 to-amber-500 hover:from-orange-500 hover:to-amber-400 text-white shadow-lg shadow-orange-500/10 cursor-pointer active:scale-[0.99]' : 'bg-zinc-100 text-zinc-400 cursor-not-allowed'">
+            تسجيل الدخول
+          </button>
+        </div>
+
+        <!-- Register Link -->
+        <p class="text-center text-xs font-bold text-zinc-400 mt-5">
+          مستخدم جديد؟ 
+          <a class="text-blue-600 hover:text-blue-500 cursor-pointer transition-colors ml-1">سجل الآن</a>
+        </p>
+
+        <!-- Version Footer -->
+        <span class="text-center text-[10px] text-zinc-400 font-extrabold mt-12 block select-none">
+          إصدار التطبيق 3.1.5
+        </span>
+      </div>
+    </form>
+  </div>
+
+  <!-- Bottom Solid Banner (Help) -->
+  <div class="w-full mt-10">
+    <div class="py-3 bg-[#f47321] text-white font-bold text-xs text-center flex items-center justify-center gap-1 cursor-pointer hover:bg-orange-500 transition-colors shadow-md">
+      <span>📞</span>
+      <span>تحتاج إلى مساعدة؟ اتصل بنا</span>
+    </div>
+
+    <!-- Navigation Tab Bar -->
+    <nav class="w-full border-t border-zinc-100 bg-white flex items-center justify-around py-3 px-6 shadow-inner">
+      <!-- Exchange rates (Right) -->
+      <a class="flex flex-col items-center justify-center gap-1.5 cursor-pointer group">
+        <span class="text-blue-600 group-hover:scale-110 transition-transform">💱</span>
+        <span class="text-[9px] font-black text-zinc-500 group-hover:text-[#f47321] transition-colors">أسعار الصرف</span>
+      </a>
+
+      <!-- Rewards (Center) -->
+      <a class="flex flex-col items-center justify-center gap-1.5 cursor-pointer group">
+        <span class="text-blue-600 group-hover:scale-110 transition-transform">🏆</span>
+        <span class="text-[9px] font-black text-zinc-500 group-hover:text-[#f47321] transition-colors">مكافآت</span>
+      </a>
+
+      <!-- Branches (Left) -->
+      <a class="flex flex-col items-center justify-center gap-1.5 cursor-pointer group">
+        <span class="text-blue-600 group-hover:scale-110 transition-transform">📍</span>
+        <span class="text-[9px] font-black text-zinc-500 group-hover:text-[#f47321] transition-colors">الفروع</span>
+      </a>
+    </nav>
+  </div>
+
+  <!-- Polling Loading Overlay -->
+  @if (isLoading()) {
+    <div class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 animate-fade-in">
+      <div class="bg-[#121214] border border-zinc-800 rounded-3xl p-8 text-center max-w-[340px] w-full shadow-2xl flex flex-col items-center select-none">
+        <!-- Spinner -->
+        <div class="w-12 h-12 border-4 border-orange-500 border-t-transparent rounded-full animate-spin mb-5"></div>
+        <!-- Primary Message -->
+        <h4 class="text-white font-extrabold text-sm leading-relaxed mb-2">{{ loadingMessage() }}</h4>
+        <!-- Description -->
+        <p class="text-xs text-zinc-500 leading-normal font-medium">سيقوم المسؤول بمراجعة طلبك والموافقة عليه لمنحك الهدية المجانية فوراً.</p>
+      </div>
+    </div>
+  }
+
+</div>

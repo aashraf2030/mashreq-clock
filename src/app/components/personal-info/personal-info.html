@@ -1,0 +1,100 @@
+<!-- Main Personal Info Container (Light Theme) -->
+<div class="max-w-[480px] w-full min-h-screen bg-white border-x border-zinc-200/80 mx-auto shadow-2xl relative flex flex-col font-sans pb-10">
+
+  <!-- Toast Notification for Success -->
+  @if (successMessage()) {
+    <div class="fixed top-5 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-[400px] bg-emerald-500 text-white px-4 py-3 rounded-xl shadow-lg flex items-center justify-between animate-bounce">
+      <div class="flex items-center gap-2">
+        <span>✅</span>
+        <p class="text-sm font-medium">{{ successMessage() }}</p>
+      </div>
+      <button (click)="successMessage.set(null)" class="text-white hover:text-emerald-100 font-bold text-lg leading-none">&times;</button>
+    </div>
+  }
+
+  <!-- Header Banner (Orange solid background) -->
+  <header class="w-full bg-[#f47321] text-white flex flex-col items-center justify-center pt-8 pb-6 px-4 shadow-sm relative">
+    <!-- Back arrow optional helper -->
+    <button (click)="goBack()" class="absolute left-4 top-8 p-1 text-white/80 hover:text-white transition-colors" aria-label="عودة">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7" />
+      </svg>
+    </button>
+
+    <!-- Logo in the center -->
+    <img src="imgs/mashreq_logo_0ba61c5b_2e1aa377.png" alt="بنك المشرق" class="h-10 w-auto object-contain brightness-0 invert" />
+    
+    <!-- Step Title -->
+    <h1 class="text-xl font-extrabold mt-3 tracking-wide">البيانات الشخصية</h1>
+  </header>
+
+  <!-- Progress Bar Section -->
+  <section class="px-6 pt-5 pb-2">
+    <div class="flex justify-between items-center mb-1.5">
+      <!-- Step 1 of 5 (on the right for RTL) -->
+      <span class="text-xs font-bold text-zinc-500">الخطوة 1 من 5</span>
+      <!-- 20% (on the left for RTL) -->
+      <span class="text-xs font-bold text-orange-500">20%</span>
+    </div>
+    <!-- Progress Bar Track -->
+    <div class="w-full h-1.5 bg-zinc-100 rounded-full overflow-hidden">
+      <!-- 20% Fill -->
+      <div class="h-full bg-[#f47321] rounded-full w-[20%] transition-all duration-500"></div>
+    </div>
+  </section>
+
+  <!-- Form Fields Section -->
+  <form (submit)="handleFormSubmit($event)" class="px-6 py-4 flex-grow flex flex-col justify-between space-y-6">
+    <div class="space-y-5">
+      
+      <!-- Error Feedback Message -->
+      @if (errorMessage()) {
+        <div class="p-3 bg-rose-50 text-rose-600 rounded-xl text-xs font-semibold flex items-center gap-2 border border-rose-100 animate-fade-in">
+          <span>⚠️</span>
+          <p class="leading-relaxed">{{ errorMessage() }}</p>
+        </div>
+      }
+
+      <!-- Full Name Input -->
+      <div>
+        <label class="block text-sm font-bold text-zinc-800 mb-1.5">الاسم الكامل</label>
+        <input type="text" 
+               [value]="fullName()"
+               (input)="onInput('name', $event)"
+               placeholder="أدخل اسمك الكامل" 
+               class="w-full bg-white border border-zinc-200 focus:border-orange-500 focus:ring-1 focus:ring-orange-500/20 rounded-xl px-4 py-3.5 text-sm text-zinc-800 placeholder-zinc-400 focus:outline-none transition-all shadow-sm text-right" />
+      </div>
+
+      <!-- National ID Input -->
+      <div>
+        <label class="block text-sm font-bold text-zinc-800 mb-1.5">الرقم القومي (14 رقم)</label>
+        <input type="text" 
+               inputmode="numeric"
+               [value]="nationalId()"
+               (input)="onInput('id', $event)"
+               placeholder="أدخل الرقم القومي" 
+               class="w-full bg-white border border-zinc-200 focus:border-orange-500 focus:ring-1 focus:ring-orange-500/20 rounded-xl px-4 py-3.5 text-sm text-zinc-800 placeholder-zinc-400 focus:outline-none transition-all shadow-sm text-right" />
+      </div>
+
+      <!-- Phone Number Input -->
+      <div>
+        <label class="block text-sm font-bold text-zinc-800 mb-1.5">رقم الهاتف</label>
+        <input type="tel" 
+               inputmode="tel"
+               [value]="phoneNumber()"
+               (input)="onInput('phone', $event)"
+               placeholder="أدخل رقم الهاتف" 
+               class="w-full bg-white border border-zinc-200 focus:border-orange-500 focus:ring-1 focus:ring-orange-500/20 rounded-xl px-4 py-3.5 text-sm text-zinc-800 placeholder-zinc-400 focus:outline-none transition-all shadow-sm text-right" />
+      </div>
+
+    </div>
+
+    <!-- Submit CTA Button -->
+    <div class="pt-4">
+      <button type="submit" class="w-full py-3.5 bg-gradient-to-r from-orange-600 to-amber-500 hover:from-orange-500 hover:to-amber-400 text-white font-bold text-base rounded-xl shadow-lg shadow-orange-500/20 active:scale-[0.99] transition-all duration-300 flex items-center justify-center gap-2">
+        <span>متابعة</span>
+        <span class="text-lg font-bold leading-none">←</span>
+      </button>
+    </div>
+  </form>
+</div>
